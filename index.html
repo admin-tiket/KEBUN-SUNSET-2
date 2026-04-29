@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ticket Category</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#efefef;color:#222} .wrap{max-width:760px;margin:0 auto;padding:18px} .poster{width:100%;height:320px;object-fit:cover;border-radius:22px;display:block;box-shadow:0 8px 24px rgba(0,0,0,.12)} h1{text-align:center;font-size:48px;margin:28px 0} .card{background:#fff;border:1px solid #ddd;border-radius:24px;overflow:hidden;margin-bottom:28px} .top{display:flex;justify-content:space-between;align-items:center;padding:34px 34px 26px} .title{font-size:34px;color:#666;margin-bottom:16px}.price{font-size:34px;font-weight:700}.qty{display:flex;align-items:center;gap:26px;border:3px solid #bbb;border-radius:24px;padding:16px 24px;font-size:34px;min-width:260px;justify-content:space-between;color:#666}.qty span.num{color:#111}.desc{background:#d9d9d9;padding:28px 34px;font-size:24px;line-height:1.6}.sold .top{opacity:.45}.stamp{color:#ff6f7f;border:5px solid #ff8d98;padding:10px 20px;font-weight:800;font-size:42px;transform:rotate(-10deg);border-radius:8px}.muted{color:#aaa}@media(max-width:768px){.wrap{padding:12px} .poster{height:220px} h1{font-size:34px}.top{padding:22px;gap:12px}.title{font-size:24px}.price{font-size:28px}.qty{min-width:170px;font-size:28px;padding:10px 18px;gap:12px}.desc{padding:20px;font-size:19px}.stamp{font-size:28px;border-width:4px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<img src="Src.Poster.png" alt="Poster Event" class="poster">
+<h1>Ticket Category</h1>
+
+<div class="card available">
+ <div class="top">
+   <div><div class="title">Regular</div><div class="price">Rp185,000</div><div id="regularWarn" class="warn">TAMBAHAN TIKET TINGGAL SEDIKIT</div><div id="regularLeft" class="small"></div></div>
+   <div class="qtybtn"><button onclick="sub('regular')">−</button><span id="regularQty">0</span><button onclick="add('regular')">+</button></div>
+ </div>
+ <div class="desc">Include: 1 tiket Regular Sunset di Kebun, 1 tiket masuk perorangan Kebun Raya Bali</div>
+</div>
+
+<div class="card available">
+ <div class="top">
+   <div><div class="title">VIP</div><div class="price">Rp400,000</div><div id="vipWarn" class="warn">TAMBAHAN TIKET TINGGAL SEDIKIT</div><div id="vipLeft" class="small"></div></div>
+   <div class="qtybtn"><button onclick="sub('vip')">−</button><span id="vipQty">0</span><button onclick="add('vip')">+</button></div>
+ </div>
+ <div class="desc">Include: 1 tiket VIP Sunset di Kebun, 1 tiket masuk perorangan Kebun Raya Bali, 1 Bean Bag, 1 Plant Heroes, area nonton khusus VIP</div>
+</div>
+
+<div class="card sold">
+ <div class="top">
+   <div><div class="title">Regular - Day 1</div><div class="price">Rp190,000</div></div>
+   <div class="stamp">SOLD OUT</div>
+ </div>
+ <div class="desc">Include: 1 tiket regular Sunset di Kebun, 1 tiket masuk perorangan Kebun Raya Bogor</div>
+</div>
+
+</div>
+<script>
+const stock={regular:3,vip:5};
+const qty={regular:0,vip:0};
+function render(){Object.keys(stock).forEach(k=>{document.getElementById(k+'Qty').textContent=qty[k];document.getElementById(k+'Left').textContent='Tiket tersisa '+(stock[k]-qty[k]);});}
+function add(k){if(qty[k]<stock[k]){qty[k]++;pulse(k);render(); function confirmPay(){let n=document.getElementById('nama').value,w=document.getElementById('wa').value,e=document.getElementById('email').value;if(!n||!w){alert('Isi nama dan WhatsApp dulu');return;}alert('Pembayaran dikirim!
+Nama: '+n+'
+WA: '+w+'
+Email: '+e+'
+Admin akan verifikasi.');document.getElementById('payModal').style.display='none';}}}
+function sub(k){if(qty[k]>0){qty[k]--;render();}}
+function pulse(k){const el=document.getElementById(k+'Warn');el.classList.remove('pop');void el.offsetWidth;el.classList.add('pop');}
+render();
+</script>
+<style>.available .qtybtn{display:flex;align-items:center;gap:18px;border:3px solid #bbb;border-radius:20px;padding:10px 18px;font-size:30px}.available button{border:none;background:none;font-size:34px;cursor:pointer}.warn{display:inline-block;margin-top:12px;background:#ffefef;color:#e53935;padding:8px 14px;border-radius:999px;font-size:18px;font-weight:700;animation:blink 1.2s infinite}.pop{animation:pop .45s}.small{font-size:16px;color:#666;margin-top:8px}@keyframes blink{50%{transform:scale(1.05);opacity:.75}}@keyframes pop{0%{transform:scale(1)}50%{transform:scale(1.15)}100%{transform:scale(1)}}</style><div style="position:sticky;bottom:0;background:#111;color:#fff;padding:18px 24px;border-radius:22px 22px 0 0;max-width:760px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:12px" id="cartBar"><div><div style="font-size:14px;opacity:.8">Total Pesanan</div><div id="grandTotal" style="font-size:28px;font-weight:700">Rp0</div></div><button onclick="checkout()" style="border:none;background:#25d366;color:#fff;padding:14px 22px;border-radius:14px;font-size:18px;font-weight:700">Bayar QRIS</button></div>
+<script>
+prices={regular:185000,vip:400000};
+const oldRender=render;render=function(){oldRender();let total=qty.regular*prices.regular+qty.vip*prices.vip;document.getElementById('grandTotal').textContent='Rp'+total.toLocaleString('id-ID');['regular','vip'].forEach(k=>{if(stock[k]-qty[k]<=1){document.getElementById(k+'Warn').style.animation='blink .5s infinite';} if(stock[k]-qty[k]==0){document.getElementById(k+'Warn').textContent='SOLD OUT';document.getElementById(k+'Warn').style.background='#222';document.getElementById(k+'Warn').style.color='#fff';}})};
+let timerInt; function checkout(){const total=document.getElementById('grandTotal').textContent;document.getElementById('payModal').style.display='flex';document.getElementById('payText').textContent='Total Pembayaran '+total;startTimer();} function startTimer(){clearInterval(timerInt);let sec=420;timerInt=setInterval(function(){let m=Math.floor(sec/60),s=sec%60;document.getElementById('countdown').textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');if(sec<=0){clearInterval(timerInt);document.getElementById('payText').textContent='Waktu habis, silakan pesan ulang.';}sec--;},1000);} render();
+</script><div id="payModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:99;align-items:center;justify-content:center;padding:20px"><div style="background:#fff;max-width:420px;width:100%;padding:22px;border-radius:22px;text-align:center"><h2 style="margin:0 0 12px">Page 2 - Pembayaran QRIS</h2><div style="background:#111;color:#fff;padding:10px 14px;border-radius:12px;margin-bottom:12px;font-weight:700">Selesaikan pembayaran dalam <span id="countdown">07:00</span></div><img src="Src.Qris-pembayaran.jpg" style="width:100%;border-radius:16px"><input id="nama" placeholder="Nama Lengkap" style="width:100%;margin-top:12px;padding:12px;border:1px solid #ccc;border-radius:12px"><input id="wa" placeholder="Nomor WhatsApp" style="width:100%;margin-top:10px;padding:12px;border:1px solid #ccc;border-radius:12px"><input id="email" placeholder="Email" style="width:100%;margin-top:10px;padding:12px;border:1px solid #ccc;border-radius:12px"><input type="file" id="bukti" style="width:100%;margin-top:10px;padding:10px;border:1px solid #ccc;border-radius:12px"><div id="payText" style="margin:14px 0;font-size:22px;font-weight:700"></div><div style="display:flex;gap:10px;margin-top:14px"><button onclick="confirmPay()" style="flex:1;border:none;background:#25d366;color:#fff;padding:12px 20px;border-radius:12px;font-weight:700">Konfirmasi</button><button onclick="document.getElementById('payModal').style.display='none'" style="flex:1;border:none;background:#111;color:#fff;padding:12px 20px;border-radius:12px">Tutup</button></div></div></div></body>
+</html>
