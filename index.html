@@ -2,33 +2,34 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Ticket Category</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tiket Event Premium</title>
 
 <style>
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Arial,Helvetica,sans-serif;
+font-family:Arial, Helvetica, sans-serif;
 }
 
 body{
-background:#f2f2f2;
-padding:20px;
+background:#efefef;
+padding:15px;
 }
 
 .container{
-max-width:700px;
+max-width:750px;
 margin:auto;
+padding-bottom:100px;
 }
 
 .poster{
 width:100%;
-border-radius:20px;
+border-radius:22px;
 overflow:hidden;
-margin-bottom:25px;
 box-shadow:0 10px 25px rgba(0,0,0,0.12);
+margin-bottom:22px;
 }
 
 .poster img{
@@ -36,18 +37,17 @@ width:100%;
 display:block;
 }
 
-.title{
+h1{
 text-align:center;
-font-size:48px;
-font-weight:bold;
-margin-bottom:25px;
+font-size:42px;
+margin-bottom:22px;
 }
 
 .card{
 background:#fff;
-border-radius:20px;
+border-radius:22px;
 overflow:hidden;
-margin-bottom:25px;
+margin-bottom:22px;
 box-shadow:0 8px 20px rgba(0,0,0,0.08);
 }
 
@@ -55,12 +55,13 @@ box-shadow:0 8px 20px rgba(0,0,0,0.08);
 display:flex;
 justify-content:space-between;
 align-items:center;
-padding:25px;
+padding:24px;
+gap:10px;
 }
 
 .name{
-font-size:34px;
-color:#999;
+font-size:30px;
+color:#888;
 }
 
 .price{
@@ -69,14 +70,30 @@ font-weight:bold;
 margin-top:10px;
 }
 
+.warn{
+margin-top:12px;
+display:inline-block;
+background:#ffe8e8;
+color:#e53935;
+padding:8px 14px;
+border-radius:50px;
+font-size:16px;
+font-weight:bold;
+animation:blink 1s infinite;
+}
+
+@keyframes blink{
+50%{opacity:.5;}
+}
+
 .qty{
-border:2px solid #ccc;
-border-radius:16px;
 display:flex;
 align-items:center;
-padding:10px 18px;
-gap:25px;
-font-size:34px;
+gap:20px;
+border:2px solid #ccc;
+padding:10px 16px;
+border-radius:16px;
+font-size:30px;
 font-weight:bold;
 }
 
@@ -89,45 +106,39 @@ cursor:pointer;
 
 .bottom{
 background:#ddd;
-padding:22px;
-font-size:24px;
+padding:20px;
+font-size:21px;
 line-height:1.5;
 }
 
-.warn{
-margin-top:12px;
-display:inline-block;
-background:#ffebeb;
-color:red;
-padding:8px 14px;
-border-radius:50px;
-font-size:18px;
-font-weight:bold;
-animation:blink 1s infinite;
-}
-
-@keyframes blink{
-50%{opacity:.4;}
-}
-
-.cart{
+.bar{
 position:fixed;
 left:0;
 right:0;
 bottom:0;
 background:#111;
 color:#fff;
-padding:18px;
+padding:15px;
 display:flex;
 justify-content:space-between;
 align-items:center;
 z-index:99;
 }
 
-.cart button{
+.total-title{
+font-size:13px;
+opacity:.8;
+}
+
+.total-price{
+font-size:28px;
+font-weight:bold;
+}
+
+.pay{
+border:none;
 background:#25d366;
 color:#fff;
-border:none;
 padding:14px 22px;
 border-radius:14px;
 font-size:18px;
@@ -138,7 +149,7 @@ cursor:pointer;
 .modal{
 position:fixed;
 inset:0;
-background:rgba(0,0,0,0.7);
+background:rgba(0,0,0,.65);
 display:none;
 justify-content:center;
 align-items:center;
@@ -150,22 +161,22 @@ z-index:999;
 background:#fff;
 width:100%;
 max-width:430px;
-border-radius:20px;
+border-radius:22px;
 padding:20px;
 }
 
 .box h2{
 text-align:center;
-margin-bottom:15px;
+margin-bottom:12px;
 }
 
 .timer{
 background:#111;
 color:#fff;
 padding:10px;
-text-align:center;
 border-radius:12px;
-margin-bottom:15px;
+text-align:center;
+margin-bottom:14px;
 font-weight:bold;
 }
 
@@ -175,21 +186,22 @@ border-radius:14px;
 margin-bottom:14px;
 }
 
-input{
+.input{
 width:100%;
 padding:12px;
-margin-bottom:10px;
-border-radius:12px;
 border:1px solid #ccc;
+border-radius:12px;
+margin-bottom:10px;
 font-size:16px;
 }
 
-.btns{
+.row{
 display:flex;
 gap:10px;
+margin-top:10px;
 }
 
-.btns button{
+.row button{
 flex:1;
 padding:13px;
 border:none;
@@ -214,31 +226,30 @@ color:#fff;
 
 <div class="container">
 
-<!-- POSTER -->
 <div class="poster">
 <img src="Src.Poster.png">
 </div>
 
-<div class="title">Ticket Category</div>
+<h1>Ticket Category</h1>
 
-<!-- REGULAR -->
+<!-- Regular -->
 <div class="card">
 <div class="top">
 <div>
 <div class="name">Regular</div>
 <div class="price">Rp185,000</div>
-<div class="warn">Tambahan Tiket Tinggal Sedikit</div>
+<div class="warn">Tambahan Tiket</div>
 </div>
 
 <div class="qty">
-<button onclick="minus('r')">-</button>
-<span id="r">0</span>
-<button onclick="plus('r')">+</button>
+<button onclick="minusRegular()">-</button>
+<span id="regularQty">0</span>
+<button onclick="plusRegular()">+</button>
 </div>
 </div>
 
 <div class="bottom">
-Include: 1 tiket Regular Sunset di Kebun, 1 tiket masuk perorangan Kebun Raya Bali
+Include: 1 tiket Regular Sunset di Kebun Raya Bali
 </div>
 </div>
 
@@ -248,34 +259,34 @@ Include: 1 tiket Regular Sunset di Kebun, 1 tiket masuk perorangan Kebun Raya Ba
 <div>
 <div class="name">VIP</div>
 <div class="price">Rp400,000</div>
-<div class="warn">Tambahan Tiket Tinggal Sedikit</div>
+<div class="warn">Tambahan Tiket</div>
 </div>
 
 <div class="qty">
-<button onclick="minus('v')">-</button>
-<span id="v">0</span>
-<button onclick="plus('v')">+</button>
+<button onclick="minusVip()">-</button>
+<span id="vipQty">0</span>
+<button onclick="plusVip()">+</button>
 </div>
 </div>
 
 <div class="bottom">
-Include: 1 tiket VIP Sunset di Kebun, 1 tiket masuk perorangan Kebun Raya Bali, 1 Bean Bag, area khusus VIP
+Include: 1 tiket VIP + area khusus VIP + bean bag
 </div>
 </div>
 
 </div>
 
-<!-- CART -->
-<div class="cart">
+<!-- Bottom -->
+<div class="bar">
 <div>
-<div>Total</div>
-<div id="total">Rp0</div>
+<div class="total-title">Total</div>
+<div class="total-price" id="totalPrice">Rp0</div>
 </div>
 
-<button onclick="bayar()">Bayar QRIS</button>
+<button class="pay" onclick="openModal()">Bayar QRIS</button>
 </div>
 
-<!-- MODAL -->
+<!-- Modal -->
 <div class="modal" id="modal">
 <div class="box">
 
@@ -287,69 +298,86 @@ Bayar Dalam <span id="timer">07:00</span>
 
 <img src="Src.Qris-pembayaran.jpg" class="qris">
 
-<input type="text" placeholder="Nama Lengkap">
-<input type="text" placeholder="Nomor WhatsApp">
-<input type="email" placeholder="Email">
-<input type="file">
+<input class="input" placeholder="Nama Lengkap">
+<input class="input" placeholder="Nomor WhatsApp">
+<input class="input" placeholder="Email">
 
-<div class="btns">
+<div class="row">
 <button class="ok">Konfirmasi</button>
-<button class="close" onclick="tutup()">Tutup</button>
+<button class="close" onclick="closeModal()">Tutup</button>
 </div>
 
 </div>
 </div>
 
 <script>
-let r=0;
-let v=0;
+let regular = 0;
+let vip = 0;
+let timerInterval;
 
-function plus(x){
-if(x=="r"){r++;}
-if(x=="v"){v++;}
-render();
+function plusRegular(){
+regular++;
+update();
 }
 
-function minus(x){
-if(x=="r" && r>0){r--;}
-if(x=="v" && v>0){v--;}
-render();
+function minusRegular(){
+if(regular > 0){
+regular--;
+update();
+}
 }
 
-function render(){
-document.getElementById("r").innerText=r;
-document.getElementById("v").innerText=v;
-
-let total=(r*185000)+(v*400000);
-document.getElementById("total").innerText=
-"Rp"+total.toLocaleString("id-ID");
+function plusVip(){
+vip++;
+update();
 }
 
-function bayar(){
-document.getElementById("modal").style.display="flex";
-timer();
+function minusVip(){
+if(vip > 0){
+vip--;
+update();
+}
 }
 
-function tutup(){
-document.getElementById("modal").style.display="none";
+function update(){
+document.getElementById("regularQty").innerText = regular;
+document.getElementById("vipQty").innerText = vip;
+
+let total = (regular * 185000) + (vip * 400000);
+
+document.getElementById("totalPrice").innerText =
+"Rp" + total.toLocaleString("id-ID");
 }
 
-function timer(){
-let s=420;
-let x=setInterval(function(){
+function openModal(){
+document.getElementById("modal").style.display = "flex";
+startTimer();
+}
 
-let m=Math.floor(s/60);
-let d=s%60;
+function closeModal(){
+document.getElementById("modal").style.display = "none";
+clearInterval(timerInterval);
+}
 
-document.getElementById("timer").innerText=
-String(m).padStart(2,'0')+":"+
-String(d).padStart(2,'0');
+function startTimer(){
+clearInterval(timerInterval);
 
-s--;
+let seconds = 420;
 
-if(s<0){
-clearInterval(x);
-document.getElementById("timer").innerText="WAKTU HABIS";
+timerInterval = setInterval(function(){
+
+let minutes = Math.floor(seconds / 60);
+let remain = seconds % 60;
+
+document.getElementById("timer").innerText =
+String(minutes).padStart(2,"0") + ":" +
+String(remain).padStart(2,"0");
+
+seconds--;
+
+if(seconds < 0){
+clearInterval(timerInterval);
+document.getElementById("timer").innerText = "WAKTU HABIS";
 }
 
 },1000);
